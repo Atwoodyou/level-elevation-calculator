@@ -41,10 +41,10 @@ left, right = st.columns([1, 1.1], gap="large")
 
 with left:
     st.markdown('<div class="section-title">① 測量資料輸入</div>', unsafe_allow_html=True)
-    bm_gl = st.number_input("基準點 BN GL（cm）", value=120.0, step=1.0, format="%.2f")
-    back_read = st.number_input("基準點讀尺／後視（cm）", min_value=0.0, value=150.0, step=1.0, format="%.2f")
-    front_read = st.number_input("目標點讀尺／前視（cm）", min_value=0.0, value=180.0, step=1.0, format="%.2f")
-    design_gl = st.number_input("設計高程 GL（cm）", value=90.0, step=1.0, format="%.2f")
+    bm_gl = st.number_input("基準點 BN GL（cm）", value=120, step=1, format="%d")
+    back_read = st.number_input("基準點讀尺／後視（cm）", min_value=0, value=150, step=1, format="%d")
+    front_read = st.number_input("目標點讀尺／前視（cm）", min_value=0, value=180, step=1, format="%d")
+    design_gl = st.number_input("設計高程 GL（cm）", value=90, step=1, format="%d")
 
 instrument_gl = bm_gl + back_read
 target_gl = instrument_gl - front_read
@@ -53,23 +53,23 @@ difference = target_gl - design_gl
 
 def gl_text(value):
     if value > 0:
-        return f"GL +{value:,.2f} cm"
+        return f"GL +{value:,d} cm"
     if value < 0:
-        return f"GL {value:,.2f} cm"
-    return "GL 0.00 cm"
+        return f"GL {value:,d} cm"
+    return "GL 0 cm"
 
 with right:
     st.markdown('<div class="section-title">② 自動計算結果</div>', unsafe_allow_html=True)
     st.metric("水準儀視準線高程", gl_text(instrument_gl))
     st.metric("目標點實際高程", gl_text(target_gl))
-    st.metric("設計高程應讀尺數", f"{design_read:,.2f} cm")
-    st.metric("實際與設計高程差", f"{difference:+,.2f} cm")
-    if abs(difference) < 0.005:
+    st.metric("設計高程應讀尺數", f"{design_read:,d} cm")
+    st.metric("實際與設計高程差", f"{difference:+,d} cm")
+    if difference == 0:
         st.success("✅ 目標點已達設計高程")
     elif difference > 0:
-        st.warning(f"目標點高於設計高程 {difference:.2f} cm")
+        st.warning(f"目標點高於設計高程 {difference:d} cm")
     else:
-        st.info(f"目標點低於設計高程 {abs(difference):.2f} cm")
+        st.info(f"目標點低於設計高程 {abs(difference):d} cm")
 
 st.divider()
 st.markdown('<div class="section-title">③ 水準儀測量示意圖</div>', unsafe_allow_html=True)
@@ -93,8 +93,8 @@ svg{{width:100%;height:auto;display:block;}}
 <text x="105" y="293">基準點 BN：{gl_text(bm_gl)}</text>
 <text x="595" y="293">目標點：{gl_text(target_gl)}</text>
 <text x="393" y="308">水準儀</text></g>
-<g font-size="17" fill="#1d4ed8"><text x="105" y="140">後視 {back_read:.2f} cm</text>
-<text x="734" y="140">前視 {front_read:.2f} cm</text></g>
+<g font-size="17" fill="#1d4ed8"><text x="105" y="140">後視 {back_read:d} cm</text>
+<text x="734" y="140">前視 {front_read:d} cm</text></g>
 </svg></body></html>"""
 components.html(diagram, height=350, scrolling=False)
 st.caption("示意圖僅說明測量關係，不代表實際高程比例。")
