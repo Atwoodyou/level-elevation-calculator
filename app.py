@@ -99,7 +99,7 @@ svg{{width:100%;height:auto;display:block;}}
 components.html(diagram, height=350, scrolling=False)
 st.caption("示意圖僅說明測量關係，不代表實際高程比例。")
 st.divider()
-st.markdown('<div class="section-title">④ 使用白話文說明</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-title">④ 計算機使用的白話文說明</div>', unsafe_allow_html=True)
 st.markdown("""
 **基準點：** 水準尺底部所放位置的高程。若現場標示的高程與尺底位置不同，請先自行加總或換算。
 
