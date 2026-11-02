@@ -99,6 +99,20 @@ svg{{width:100%;height:auto;display:block;}}
 components.html(diagram, height=350, scrolling=False)
 st.caption("示意圖僅說明測量關係，不代表實際高程比例。")
 st.divider()
-with st.expander("④ 查看計算公式"):
+st.markdown('<div class="section-title">④ 使用白話文說明</div>', unsafe_allow_html=True)
+st.markdown("""
+**基準點：** 水準尺底部所放位置的高程。若現場標示的高程與尺底位置不同，請先自行加總或換算。
+
+**後視：** 在基準點放好水準尺，儀器對準並發出「嗶嗶嗶」提示時，水準尺上的讀數。
+
+**前視：** 在要測量的目標位置放好水準尺，儀器對準時水準尺上的讀數。
+
+**設計高程：** 目標位置預定要達到的高程，請先依圖面及現場基準自行換算。
+
+**設計高程應讀尺數：** 當目標位置達到正確設計高程時，水準尺應顯示的公分數。
+""")
+
+st.divider()
+with st.expander("⑤ 查看計算公式"):
     st.code("視準線高程 = 基準點 GL + 後視讀尺\n目標點高程 = 視準線高程 - 前視讀尺\n設計高程應讀尺 = 視準線高程 - 設計 GL\n高程差 = 目標點實際高程 - 設計高程", language="text")
     st.caption("單位統一使用 cm。GL 負值請直接輸入負號，不需要額外括號。")
